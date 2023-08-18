@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from zoom_service import ZoomService
-from utils import setup_logger, handle_error
 import os
 
 app = Flask(__name__)
@@ -8,8 +7,8 @@ app = Flask(__name__)
 @app.route('/create_meeting', methods=['POST'])
 def create_meeting():
     data = request.get_json()
-    zoom_meeting_id = data.get('zoom_meeting_id')
-    zoom_passcode = data.get('zoom_passcode')
+    zoom_meeting_id = data.get('zoom_meeting_id', None)
+    zoom_passcode = data.get('zoom_passcode', None)
 
     if not zoom_meeting_id or not zoom_passcode:
         return jsonify({"error": "Missing Zoom meeting ID or passcode"}), 400

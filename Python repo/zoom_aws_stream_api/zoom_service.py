@@ -12,10 +12,9 @@ class ZoomService:
 
     def create_meeting(self) -> Dict[str, str]:
         try:
-            # Assuming Zoom API endpoint for creating a meeting
             response = requests.post(
                 f'https://api.zoom.us/v2/users/me/meetings',
-                headers={'Authorization': 'Bearer YOUR_ZOOM_JWT_TOKEN'},
+                headers={'Authorization': f'Bearer {self.aws_service.get_zoom_jwt_token()}'},
                 json={
                     'topic': 'AWS Stream',
                     'type': 2,

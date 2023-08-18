@@ -21,10 +21,13 @@ class AWSService:
                 type='BASIC',
                 authorized=True
             )
+            stream_key = self.client.create_stream_key(
+                channelArn=response['channel']['arn']
+            )
             return {
                 'stream_arn': response['channel']['arn'],
                 'stream_url': response['channel']['ingestEndpoint'],
-                'stream_key': response['streamKey']['value']
+                'stream_key': stream_key['streamKey']['value']
             }
         except (BotoCoreError, ClientError) as error:
             return {"error": str(error)}
